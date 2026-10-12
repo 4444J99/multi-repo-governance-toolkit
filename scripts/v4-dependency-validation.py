@@ -12,7 +12,8 @@ import json
 import os
 from collections import defaultdict
 
-REGISTRY_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "repo-registry.json")
+REGISTRY_PATH = os.environ.get(
+    "REGISTRY_PATH", os.path.join(os.path.dirname(os.path.dirname(__file__)), "repo-registry.json"))
 
 # Organ ordering for back-edge detection
 # Flow is I->II->III. IV orchestrates, V documents, VI/VII amplify.
@@ -219,11 +220,12 @@ def main():
         "pass": v4_pass
     }
 
-    report_path = os.path.join(os.path.dirname(__file__), "v4-report.json")
+    report_path = os.environ.get("V4_REPORT", os.path.join(os.path.dirname(__file__), "v4-report.json"))
     with open(report_path, 'w') as f:
         json.dump(report, f, indent=2)
     print(f"\n  Report written to {report_path}")
+    return 0 if v4_pass else 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
