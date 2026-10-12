@@ -1,6 +1,18 @@
 # multi-repo-governance-toolkit
 
-A small toolkit for governing a multi-repository GitHub estate: registry and metadata scripts, reusable repository templates, and a pytest suite.
+[![CI](https://github.com/4444J99/multi-repo-governance-toolkit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/4444J99/multi-repo-governance-toolkit/actions/workflows/ci.yml)
+
+When one owner runs dozens of separate GitHub repos, the registry, community-health files and metadata drift apart, and personal details leak into public code. This toolkit keeps them consistent with scripts that validate the registry, generate GitHub config, report PR status and lint every file for names, emails and home paths.
+
+## Quick start
+
+```console
+$ python scripts/identity-lint.py .
+identity-lint: notice: IDENTITY_SALT/IDENTITY_DENYLIST not set; skipping denylist and domain-hash checks (plain-pattern checks still run)
+identity-lint: 0 denylist hashes, 4 allowlist entries, 0 finding(s)
+```
+
+That output is from a local run without the CI secrets. In CI, the same command loads the salted denylist.
 
 ## What's inside
 
